@@ -1,8 +1,4 @@
-# TFServing-setup-review
-
-## Basic tutorial for Tensorflow Serving API (checkout tfclient branch)
-
-- [TFClinet](https://github.com/Alwaysproblem/TFServing-setup-tutorial/tree/tfclient)
+# TFServing
 
 ## Basic tutorial for Tensorflow Serving
 
@@ -14,9 +10,24 @@
 
 ## **Tutorial for starting**
 
+- clone this repo
+
 ```bash
-$ git clone https://github.com/Alwaysproblem/TFServing-setup-review.git
-$ cd TFServing-setup-review
+$ git clone https://github.com/Alwaysproblem/MLserving-tutorial
+$ cd TFserving/
+```
+
+- clone tensorflow from source (optional)
+
+```bash
+$ git clone -b <version_you_need> https://github.com/tensorflow/tensorflow
+```
+
+
+- clone serving from source (optional)
+
+```bash
+$ git clone -b <version_you_need> https://github.com/tensorflow/serving
 ```
 
 ## **Easy TFServer**
@@ -332,7 +343,7 @@ $ cd TFServing-setup-review
 - for gRPC
 
   ```bash
-    $ python3 grpcRequest.py -m Toy -v 1
+    $ python3 ClientAPI/python/grpc_request.py -m Toy -v 1
     # outputs {
     #   key: "output_1"
     #   value {
@@ -356,7 +367,7 @@ $ cd TFServing-setup-review
     #   }
     #   signature_name: "serving_default"
     # }
-    $ python3 grpcRequest.py -m Toy -v 2
+    $ python3 ClientAPI/python/grpc_request.py -m Toy -v 2
     # outputs {
     #   key: "output_1"
     #   value {
@@ -426,7 +437,7 @@ $ cd TFServing-setup-review
   ```
 
   ```bash
-  $ python3 grpc_request.py -m Toy -l stable
+  $ python3 ClientAPI/python/grpc_request.py -m Toy -l stable
   # outputs {
   #   key: "output_1"
   #   value {
@@ -450,7 +461,7 @@ $ cd TFServing-setup-review
   #   }
   #   signature_name: "serving_default"
   # }
-  $ python3 grpc_request.py -m Toy -l canary
+  $ python3 ClientAPI/python/grpc_request.py -m Toy -l canary
   # outputs {
   #   key: "output_1"
   #   value {
@@ -516,7 +527,7 @@ $ cd TFServing-setup-review
       - return error `"Task size 2 is larger than maximum batch size 1"`
 
         ```bash
-        $ python3 grpc_request.py -m Toy -v 1
+        $ python3 ClientAPI/python/grpc_request.py -m Toy -v 1
         # Traceback (most recent call last):
         #   File "grpcRequest.py", line 58, in <module>
         #     resp = stub.Predict(request, timeout_req)
@@ -628,7 +639,7 @@ $ cd TFServing-setup-review
 - get the information data structure with gRPC
 
   ```bash
-  $ python grpc_metadata.py -m Toy -v 2
+  $ python ClientAPI/python/grpc_metadata.py -m Toy -v 2
   # model_spec {
   #   name: "Toy"
   #   version {
@@ -676,12 +687,20 @@ $ cd TFServing-setup-review
 
 ## Setup client API
 
-- [GO](./go/README.md)
-- [Python](./python/README.md)
-- [Cpp](./cpp/README.md)
+- [GO](ClientAPI/go/README.md)
+- [Python](ClientAPI/python/README.md)
+- [Cpp-cmake](ClientAPI/cpp/cmake/README.md)
+- [Cpp-cmake-static-lib](ClientAPI/cpp/cmake-static-lib/README.md)
+- [Cpp-make](ClientAPI/cpp/make/README.md)
+- [Cpp-make-static-lib](ClientAPI/cpp/make-static-lib/README.md)
+
+
+## Custom Operation
+<!-- TODO: -->
 
 ## For production
+<!-- TODO: -->
 
 - [SavedModel Warmup](https://www.tensorflow.org/tfx/serving/saved_model_warmup)
-- please see grpcRequestLog.py
+- please see ClientAPI/python/grpc_request_log.py
 - `--enable_model_warmup`: Enables model warmup using user-provided PredictionLogs in assets.extra/ directory
