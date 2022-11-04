@@ -695,6 +695,8 @@ $ git clone -b <version_you_need> https://github.com/tensorflow/serving
 - [Cpp-make](ClientAPI/cpp/make/README.md)
 - [Cpp-make-static-lib](ClientAPI/cpp/make-static-lib/README.md)
 
+## Feature Column and vocabulary file for serving
+<!-- TODO: -->
 
 ## Custom Operation
 <!-- TODO: -->
