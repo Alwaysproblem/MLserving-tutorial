@@ -14,7 +14,7 @@
 
 ```bash
 $ git clone https://github.com/Alwaysproblem/MLserving-tutorial
-$ cd MLserving-tutorial/TFserving/
+$ cd MLserving-tutorial/TFserving/ClientAPI
 ```
 
 - clone tensorflow from source (optional)
@@ -698,12 +698,27 @@ $ git clone -b <version_you_need> https://github.com/tensorflow/serving
 ## Feature Column and vocabulary file for serving
 <!-- TODO: -->
 
-## Custom Operation
-<!-- TODO: -->
-
 ## For production
-<!-- TODO: -->
 
 - [SavedModel Warmup](https://www.tensorflow.org/tfx/serving/saved_model_warmup)
-- please see ClientAPI/python/grpc_request_log.py
+- please see ClientAPI/wramup/warmup.py
 - `--enable_model_warmup`: Enables model warmup using user-provided PredictionLogs in assets.extra/ directory
+
+```bash
+$ python ClientAPI/wramup/warmup.py # it will generate tf_serving_warmup_requests tfrecords (2.9.2)
+$ cp tf_serving_warmup_requests <model_dir>/<version>/assets.extra/tf_serving_warmup_requests
+```
+
+The server log:
+```log
+2022-11-04 06:34:39.419417: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:213] Running initialization op on SavedModel bundle at path: /models/save/Toy/2
+2022-11-04 06:34:39.426058: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:305] SavedModel load for tags { serve }; Status: success: OK. Took 32252 microseconds.
+2022-11-04 06:34:39.426708: I tensorflow_serving/servables/tensorflow/saved_model_warmup_util.cc:73] Starting to read warmup data for model at /models/save/Toy/2/assets.extra/tf_serving_warmup_requests with model-warmup-options
+2022-11-04 06:34:39.441661: I tensorflow_serving/servables/tensorflow/saved_model_warmup_util.cc:210] Finished reading warmup data for model at /models/save/Toy/2/assets.extra/tf_serving_warmup_requests. Number of warmup records read: 1. Elapsed time (microseconds): 15304.
+```
+
+## Advanced Tutorial
+
+### Custom Operation
+
+<!-- TODO: -->
