@@ -12,6 +12,5 @@
     "--style",
     "${workspaceFolder}/.style.yapf"
   ],
-  "python.linting.cwd": "${workspaceFolder}",
-  "python.pythonPath": "/Users/yongxiyang/opt/anaconda3/envs/mlserving/bin/python"
+  "python.linting.cwd": "${workspaceFolder}"
 }
