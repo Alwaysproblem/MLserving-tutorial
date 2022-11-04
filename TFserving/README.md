@@ -14,7 +14,7 @@
 
 ```bash
 $ git clone https://github.com/Alwaysproblem/MLserving-tutorial
-$ cd cd MLserving-tutorial/TFserving/
+$ cd MLserving-tutorial/TFserving/
 ```
 
 - clone tensorflow from source (optional)
