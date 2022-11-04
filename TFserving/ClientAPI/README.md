@@ -1,7 +1,5 @@
 # Tensorflow Serving Client API
 
-## Basic tutorial for Tensorflow Serving Client API
-
 ## **Requiement**
 
 - Docker
@@ -17,12 +15,9 @@
 ## **Tutorial for starting**
 
 ```bash
-$ git clone https://github.com/Alwaysproblem/TFServing-setup-review.git
-$ cd TFServing-setup-review
-$ git checkout tfclient
+$ git clone https://github.com/Alwaysproblem/MLserving-tutorial
+$ cd MLserving-tutorial/TFserving/
 ```
-
-*[basic tutorial](https://github.com/Alwaysproblem/TFServing-setup-tutorial/tree/master)*
 
 ## Run Server
 
@@ -44,4 +39,7 @@ $ curl -d '{"instances": [[1.0, 2.0]]}' -X POST http://localhost:8501/v1/models/
 
 - [GO](./go/README.md)
 - [Python](./python/README.md)
-- [Cpp](./cpp/README.md)
+- [Cpp-cmake](./cpp/cmake/README.md)
+- [Cpp-cmake-static-lib](./cpp/cmake-static-lib/README.md)
+- [Cpp-make](./cpp/make/README.md)
+- [Cpp-make-static-lib](./cpp/make-static-lib/README.md)

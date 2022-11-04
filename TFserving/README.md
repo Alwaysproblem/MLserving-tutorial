@@ -14,7 +14,7 @@
 
 ```bash
 $ git clone https://github.com/Alwaysproblem/MLserving-tutorial
-$ cd TFserving/
+$ cd cd MLserving-tutorial/TFserving/
 ```
 
 - clone tensorflow from source (optional)
@@ -686,6 +686,7 @@ $ git clone -b <version_you_need> https://github.com/tensorflow/serving
   ```
 
 ## Setup client API
+
 
 - [GO](ClientAPI/go/README.md)
 - [Python](ClientAPI/python/README.md)
