@@ -721,4 +721,6 @@ The server log:
 
 ### Custom Operation
 
-<!-- TODO: -->
+For custom operation of tensorflow, please refer to the [Create an Op](https://www.tensorflow.org/guide/create_op) and [Serving TensorFlow models with custom ops](https://www.tensorflow.org/tfx/serving/custom_op). However, we only provide a example for custom op and the way to modify the tensorflow server. you can click this link for detail:
+
+[Custom operation examples](CustomOp/README.md)
