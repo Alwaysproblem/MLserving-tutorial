@@ -4,3 +4,5 @@ logs
 .mypy_cache
 build
 .vscode
+tensorflow/
+serving/
