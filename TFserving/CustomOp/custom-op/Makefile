@@ -2,6 +2,7 @@ CXX := g++
 NVCC := nvcc
 PYTHON_BIN_PATH = python
 
+ADD_INDEX_SRCS = $(wildcard add_index/cc/kernels/*.cc) $(wildcard add_index/cc/ops/*.cc)
 ZERO_OUT_SRCS = $(wildcard tensorflow_zero_out/cc/kernels/*.cc) $(wildcard tensorflow_zero_out/cc/ops/*.cc)
 TIME_TWO_SRCS = tensorflow_time_two/cc/kernels/time_two_kernels.cc $(wildcard tensorflow_time_two/cc/kernels/*.h) $(wildcard tensorflow_time_two/cc/ops/*.cc)
 
@@ -55,4 +56,4 @@ time_two_test: tensorflow_time_two/python/ops/time_two_ops_test.py tensorflow_ti
 	$(PYTHON_BIN_PATH) tensorflow_time_two/python/ops/time_two_ops_test.py
 
 clean:
-	rm -f $(ZERO_OUT_TARGET_LIB) $(TIME_TWO_GPU_ONLY_TARGET_LIB) $(TIME_TWO_TARGET_LIB)
+	rm -f $(ADD_INDEX_TARGET_LIB) $(ZERO_OUT_TARGET_LIB) $(TIME_TWO_GPU_ONLY_TARGET_LIB) $(TIME_TWO_TARGET_LIB)
