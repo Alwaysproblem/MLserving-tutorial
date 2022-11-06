@@ -6,4 +6,3 @@ build
 .vscode
 tensorflow/
 serving/
-custom-op/

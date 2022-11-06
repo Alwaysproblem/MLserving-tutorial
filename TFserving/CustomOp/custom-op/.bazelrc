@@ -1,0 +1,7 @@
+build --spawn_strategy=standalone
+build --strategy=Genrule=standalone
+build -c opt
+build --action_env TF_HEADER_DIR="/root/anaconda3/envs/build_tf/lib/python3.8/site-packages/tensorflow/include"
+build --action_env TF_SHARED_LIBRARY_DIR="/root/anaconda3/envs/build_tf/lib/python3.8/site-packages/tensorflow"
+build --action_env TF_SHARED_LIBRARY_NAME="libtensorflow_framework.so.2"
+build --action_env TF_NEED_CUDA="0"
