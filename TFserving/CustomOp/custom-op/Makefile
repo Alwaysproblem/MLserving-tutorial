@@ -8,12 +8,25 @@ TIME_TWO_SRCS = tensorflow_time_two/cc/kernels/time_two_kernels.cc $(wildcard te
 TF_CFLAGS := $(shell $(PYTHON_BIN_PATH) -c 'import tensorflow as tf; print(" ".join(tf.sysconfig.get_compile_flags()))')
 TF_LFLAGS := $(shell $(PYTHON_BIN_PATH) -c 'import tensorflow as tf; print(" ".join(tf.sysconfig.get_link_flags()))')
 
-CFLAGS = ${TF_CFLAGS} -fPIC -O2 -std=c++14
+CFLAGS = ${TF_CFLAGS} -fPIC -O2 -std=c++17
 LDFLAGS = -shared ${TF_LFLAGS}
 
+ADD_INDEX_TARGET_LIB = add_index/python/ops/_add_index_ops.so
 ZERO_OUT_TARGET_LIB = tensorflow_zero_out/python/ops/_zero_out_ops.so
 TIME_TWO_GPU_ONLY_TARGET_LIB = tensorflow_time_two/python/ops/_time_two_ops.cu.o
 TIME_TWO_TARGET_LIB = tensorflow_time_two/python/ops/_time_two_ops.so
+
+# add_index op for CPU
+add_index_op: $(ADD_INDEX_TARGET_LIB)
+
+$(ADD_INDEX_TARGET_LIB): $(ADD_INDEX_SRCS)
+	$(CXX) $(CFLAGS) -o $@ $^ ${LDFLAGS}
+
+add_index_test: add_index/python/ops/add_index_ops_test.py add_index/python/ops/add_index_ops.py $(ADD_INDEX_TARGET_LIB)
+	$(PYTHON_BIN_PATH) add_index/python/ops/add_index_ops_test.py
+
+add_index_pip_pkg: $(ADD_INDEX_TARGET_LIB)
+	./build_pip_pkg.sh make artifacts
 
 # zero_out op for CPU
 zero_out_op: $(ZERO_OUT_TARGET_LIB)
