@@ -1,6 +1,6 @@
 # Custom Operations for Tensorflow and Tensorflow serving
 
-This is an example for integration a custom operation to tensorflow and tensorflow serving. For simplification, we take the operation system with ubuntu 20.04 and python 3.8. The basic tools for bazel is `bazelisk`. For tensorflow version, we take version 2.10 and tfserving 2.10 since the tensorflow APIs are intend to be stable. The custom operation will be the CPU add_index operation. In order to integrate custom operation, we need to set up a environment of building source code of tensorflow and tensorflow server. The procedures of this are listed here:
+This is an example for integration a custom operation to tensorflow and tensorflow serving. For simplification, we take the operation system with ubuntu 20.04 and python 3.8 and gcc/g++ 9.4. The basic tools for bazel is `bazelisk`. For tensorflow version, we take version 2.10 and tfserving 2.10 since the tensorflow APIs are intend to be stable. The custom operation will be the CPU add_index operation. In order to integrate custom operation, we need to set up a environment of building source code of tensorflow and tensorflow server. The procedures of this are listed here:
 
 1. Setup environment successfully (can build tensorflow and tensorflow serving from source code)
 2. Create an operation for tensorflow. (from repo [custom-op](https://github.com/tensorflow/custom-op))
@@ -25,10 +25,20 @@ $ git clone -b r2.10 https://github.com/tensorflow/tensorflow.git
 $ git clone -b r2.10 https://github.com/tensorflow/serving.git
 ```
 
-- clone the custom op template and example from google
+- The code from `custom-op` is modified from the [custom-op](https://github.com/tensorflow/custom-op). you can also clone the template and change the code.
 
 ```bash
 $ git clone https://github.com/tensorflow/custom-op.git
+```
+
+- install gcc/g++
+
+```bash
+apt update -y
+apt install g++-9 gcc-9 -y
+update-alternatives --install /usr/local/bin/g++ g++ /usr/bin/g++-9 90
+update-alternatives --install /usr/local/bin/gcc gcc /usr/bin/gcc-9 90
+apt install rsync -y
 ```
 
 - Install python
@@ -92,10 +102,25 @@ $ bazel help
 #                    Displays a list of keys used by the info command.
 ```
 
-### Create an Op
-
-- Add an tensorflow_add_index directory
+- test for env
 
 ```bash
-$ cp -R add_index custom-op/
+bazel test //tensorflow_zero_out:zero_out_ops_py_test
+```
+
+### Create an Op
+
+- configure the application
+
+```bash
+$ bash ./configure.sh # all yes!
+```
+
+- build wheel
+
+```bash
+bazel build //:build_pip_pkg
+bazel-bin/build_pip_pkg artifacts
+ls artifacts
+# tensorflow-custom-ops-*.whl
 ```
