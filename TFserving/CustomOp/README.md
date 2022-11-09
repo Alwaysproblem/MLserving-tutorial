@@ -102,6 +102,18 @@ $ bazel help
 #                    Displays a list of keys used by the info command.
 ```
 
+- Enter the custom-op dir
+
+```bash
+cd custom-op
+```
+
+- configure the application
+
+```bash
+$ bash ./configure.sh # all yes!
+```
+
 - test for env
 
 ```bash
@@ -110,17 +122,17 @@ bazel test //tensorflow_zero_out:zero_out_ops_py_test
 
 ### Create an Op
 
-- configure the application
-
-```bash
-$ bash ./configure.sh # all yes!
-```
-
-- build wheel
+- Build wheel
 
 ```bash
 bazel build //:build_pip_pkg
 bazel-bin/build_pip_pkg artifacts
 ls artifacts
-# tensorflow-custom-ops-*.whl
+# tensorflow_custom_ops-*.whl
+```
+
+- Install custom ops wheel to the virtual env
+
+```bash
+python -m pip install artifacts/tensorflow_custom_ops-*.whl
 ```
