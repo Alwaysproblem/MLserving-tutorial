@@ -18,13 +18,6 @@ $ git clone https://github.com/Alwaysproblem/MLserving-tutorial.git
 $ cd MLserving-tutorial/TFserving/CustomOp
 ```
 
-- clone tensorflow source code and tensorflow serving source code
-
-```bash
-$ git clone -b r2.10 https://github.com/tensorflow/tensorflow.git
-$ git clone -b r2.10 https://github.com/tensorflow/serving.git
-```
-
 - The code from `custom-op` is modified from the [custom-op](https://github.com/tensorflow/custom-op). you can also clone the template and change the code.
 
 ```bash
