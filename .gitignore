@@ -8,3 +8,4 @@ tensorflow/
 serving/
 bazel-*
 *.whl
+add_index_serverable
