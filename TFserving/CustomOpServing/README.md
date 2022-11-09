@@ -49,10 +49,10 @@ $ python ../CustomOp/custom-op/add_index/python/ops/add_index_ops_test.py
 ```bash
 $ cd serving
 $ mkdir tensorflow_serving/custom_ops
-$ cp -r ../CustomOp/custom-op/add_index tensorflow_serving/custom_ops
+$ cp -r ../../CustomOp/custom-op/add_index tensorflow_serving/custom_ops
 ```
 
-- add this content to the `custom-op/add_index/BUILD`.
+- add this content to the `tensorflow_serving/custom_ops/add_index/BUILD`.
 This content will be a target to build a static library `.a`.
 
 ```python
