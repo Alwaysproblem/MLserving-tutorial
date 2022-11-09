@@ -20,7 +20,7 @@ $ git clone -b r2.10 https://github.com/tensorflow/serving.git
 Test for environment setup:
 
 ```bash
-python ../CustomOp/custom-op/add_index/python/ops/add_index_ops_test.py
+$ python ../CustomOp/custom-op/add_index/python/ops/add_index_ops_test.py
 # Running tests under Python 3.8.13: /root/anaconda3/envs/build_tf/bin/python
 # [ RUN      ] AddIndexTest.testAddIndex
 # WARNING:tensorflow:From /root/anaconda3/envs/build_tf/lib/python3.8/contextlib.py:83: TensorFlowTestCase.test_session (from tensorflow.python.framework.test_util) is deprecated and will be removed in a future version.
@@ -47,9 +47,9 @@ python ../CustomOp/custom-op/add_index/python/ops/add_index_ops_test.py
 - copy the `add_index` op source to the `serving` directory
 
 ```bash
-cd serving
-mkdir tensorflow_serving/custom_ops
-cp -r ../CustomOp/custom-op/add_index tensorflow_serving/custom_ops
+$ cd serving
+$ mkdir tensorflow_serving/custom_ops
+$ cp -r ../CustomOp/custom-op/add_index tensorflow_serving/custom_ops
 ```
 
 - add this content to the `custom-op/add_index/BUILD`.
@@ -85,7 +85,7 @@ SUPPORTED_TENSORFLOW_OPS = [
 
 
 ```bash
-tools/run_in_docker.sh bazel build tensorflow_serving/model_servers:tensorflow_model_server
+$ tools/run_in_docker.sh bazel build tensorflow_serving/model_servers:tensorflow_model_server
 ```
 
 ## Save a Custom Op Model
@@ -93,8 +93,8 @@ tools/run_in_docker.sh bazel build tensorflow_serving/model_servers:tensorflow_m
 - you can save the custom op model to `add_index_serverable/1`
 
 ```bash
-cd ..
-python custom_op_model.py
+$ cd ..
+$ python custom_op_model.py
 # ...
 # 2022-11-09 08:18:56.970621: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (sgjur-pod006-2): /proc/driver/nvidia/version does not exist
 # 2022-11-09 08:18:56.970816: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
@@ -107,7 +107,7 @@ python custom_op_model.py
 - you can run the command below with the tfserving dev container.
 
 ```bash
-tools/run_in_docker.sh -o "-v $(dirname $(pwd))/add_index_serverable/:/models/add_index_serverable/" \
+$ tools/run_in_docker.sh -o "-v $(dirname $(pwd))/add_index_serverable/:/models/add_index_serverable/" \
 bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server --port=18500 \
 --rest_api_port=28501 --model_name=add_index_serverable --model_base_path=/models/add_index_serverable
 ```
@@ -115,9 +115,9 @@ bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server --port=18500 
 - or you can cp the binary to the `CustomOpServing` directory and run the binary directly
 
 ```bash
-cp serving/.cache/_bazel_scotty/<__hash_str__>/execroot/tf_serving/bazel-out/k8-opt/bin/tensorflow_serving/model_servers/tensorflow_model_server ./
+$ cp serving/.cache/_bazel_scotty/<__hash_str__>/execroot/tf_serving/bazel-out/k8-opt/bin/tensorflow_serving/model_servers/tensorflow_model_server ./
 
-./tensorflow_model_server --port 18500 --rest_api_port=28501 --model_name=add_index_serverable --model_base_path=`pwd`/add_index_serverable
+$ ./tensorflow_model_server --port 18500 --rest_api_port=28501 --model_name=add_index_serverable --model_base_path=`pwd`/add_index_serverable
 ```
 
 ## Send an inference request to test op manually
@@ -125,7 +125,7 @@ cp serving/.cache/_bazel_scotty/<__hash_str__>/execroot/tf_serving/bazel-out/k8-
 - You can now send an inference request to the model server to test your custom op:
 
 ```bash
-curl http://localhost:28501/v1/models/add_index_serverable:predict -X POST -d '{"inputs": [1,3,4,5,6]}'
+$ curl http://localhost:28501/v1/models/add_index_serverable:predict -X POST -d '{"inputs": [1,3,4,5,6]}'
 # {
 #     "outputs": [
 #         1.0,
