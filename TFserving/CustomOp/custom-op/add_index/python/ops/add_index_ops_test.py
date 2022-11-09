@@ -26,9 +26,9 @@ except ImportError:
   from add_index_ops import add_index  # type: ignore
 
 
-class ZeroOutTest(test.TestCase):
+class AddIndexTest(test.TestCase):
 
-  def testZeroOut(self):
+  def testAddIndex(self):
     with self.test_session():
       self.assertAllClose(
           add_index([[1, 2], [3, 4]]), np.array([[1, 3], [5, 7]])
