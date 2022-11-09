@@ -6,3 +6,5 @@ build
 .vscode
 tensorflow/
 serving/
+bazel-*
+*.whl
