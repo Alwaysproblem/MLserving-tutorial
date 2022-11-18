@@ -11,9 +11,9 @@ link_directories(/usr/local/lib)
 link_directories(/grpc/cmake/build)
 link_directories(/usr/lib/x86_64-linux-gnu)
 
-link_directories(/usr/local/lib )
-link_directories(/grpc/cmake/build )
-link_directories(/usr/lib )
+link_directories(/usr/local/lib)
+link_directories(/grpc/cmake/build)
+link_directories(/usr/lib)
 link_directories(/grpc/cmake/build/third_party/boringssl-with-bazel)
 link_directories(/grpc/cmake/build/third_party/abseil-cpp/absl/base)
 link_directories(/grpc/cmake/build/third_party/abseil-cpp/absl/strings)
@@ -32,13 +32,25 @@ link_directories(/grpc/cmake/build/third_party/abseil-cpp/absl/numeric)
 link_directories(/grpc/cmake/build/third_party/cares/cares/lib)
 link_directories(/cpp/src/cmake-static-lib/build)
 
-file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "./*.cc")
+file(
+  GLOB_RECURSE SOURCES
+  RELATIVE ${CMAKE_SOURCE_DIR}
+  "./*.cc")
 
 add_executable(predict-log ${SOURCES})
 target_link_libraries(${PROJECT_NAME} -ltfclient)
-target_link_libraries(${PROJECT_NAME} -lboost_program_options -lprotobuf -pthread -lgrpc++ -lgrpc -lgpr)
-target_link_libraries(${PROJECT_NAME} -laddress_sorting -lgrpc++_alts -lgrpc++_error_details -lgrpc++_reflection)
-target_link_libraries(${PROJECT_NAME} -lgrpc++_unsecure -lgrpc_plugin_support -lgrpc_unsecure -lgrpcpp_channelz -lupb)
+target_link_libraries(
+  ${PROJECT_NAME}
+  -lboost_program_options
+  -lprotobuf
+  -pthread
+  -lgrpc++
+  -lgrpc
+  -lgpr)
+target_link_libraries(${PROJECT_NAME} -laddress_sorting -lgrpc++_alts
+                      -lgrpc++_error_details -lgrpc++_reflection)
+target_link_libraries(${PROJECT_NAME} -lgrpc++_unsecure -lgrpc_plugin_support
+                      -lgrpc_unsecure -lgrpcpp_channelz -lupb)
 target_link_libraries(${PROJECT_NAME} -labsl_base)
 target_link_libraries(${PROJECT_NAME} -labsl_str_format_internal)
 target_link_libraries(${PROJECT_NAME} -labsl_strings_internal)
@@ -91,13 +103,14 @@ target_link_libraries(${PROJECT_NAME} -labsl_demangle_internal)
 target_link_libraries(${PROJECT_NAME} -labsl_flags)
 target_link_libraries(${PROJECT_NAME} -labsl_bad_any_cast_impl)
 target_link_libraries(${PROJECT_NAME} -labsl_leak_check)
-target_link_libraries(${PROJECT_NAME} -labsl_random_internal_distribution_test_util)
+target_link_libraries(${PROJECT_NAME}
+                      -labsl_random_internal_distribution_test_util)
 target_link_libraries(${PROJECT_NAME} -labsl_civil_time)
 target_link_libraries(${PROJECT_NAME} -labsl_hashtablez_sampler)
 target_link_libraries(${PROJECT_NAME} -lcares)
 target_link_libraries(${PROJECT_NAME} -lz)
 target_link_libraries(${PROJECT_NAME} -lssl)
-target_link_libraries(${PROJECT_NAME} -lcrypto )
+target_link_libraries(${PROJECT_NAME} -lcrypto)
 target_link_libraries(${PROJECT_NAME} -ldl)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
