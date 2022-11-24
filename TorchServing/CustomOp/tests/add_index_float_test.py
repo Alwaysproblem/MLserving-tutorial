@@ -6,11 +6,11 @@ import torch
 torch.ops.load_library("libadd_index.so")
 print(torch.ops.my_ops.add_index)
 
-a = torch.randint(1, 10, size=(3, 4), dtype=torch.int32)
+a = torch.randint(1, 10, size=(3, 4), dtype=torch.float32)
 o = torch.ops.my_ops.add_index(a)
 
 assert_allclose(
-    o.numpy().astype(np.int32),
+    o.numpy().astype(np.float32),
     a + torch.Tensor(list(range(12))).reshape((3, 4))
 )
 
