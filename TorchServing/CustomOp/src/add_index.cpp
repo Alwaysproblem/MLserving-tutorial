@@ -4,28 +4,25 @@
 #include <memory>
 
 template <typename T>
+void add_index_kernel(T* input_data_ptr, int64_t sizes, T* output_data_ptr) {
+  for (size_t i = 0; i < sizes; i++) {
+    output_data_ptr[i] = input_data_ptr[i] + (T)i;
+  }
+}
+
 torch::Tensor add_index(torch::Tensor input_tensor) {
-  using std::cout;
-  using std::endl;
+  auto output = torch::zeros_like(input_tensor);
   size_t ndim = input_tensor.dim();
   int64_t dims = 1;
   for (size_t i = 0; i < ndim; ++i) {
     dims *= input_tensor.size(i);
   }
-  T* p = input_tensor.data_ptr<T>();
-  std::vector<T> output_tensor_data(dims);
-  for (size_t i = 0; i < dims; i++) {
-    output_tensor_data[i] = p[i] + (T)i;
-  }
-
-  torch::Tensor output = torch::from_blob(
-      /*data=*/(void*)output_tensor_data.data(),
-      /*sizes=*/input_tensor.sizes(),
-      /*options=*/input_tensor.options());
+  AT_DISPATCH_ALL_TYPES(input_tensor.scalar_type(), "add_index", ([&] {
+                          add_index_kernel<scalar_t>(
+                              input_tensor.data_ptr<scalar_t>(), dims,
+                              output.data_ptr<scalar_t>());
+                        }));
   return output.clone();
 }
 
-TORCH_LIBRARY(my_ops, m) {
-  m.def("add_index", &add_index<int>);
-  // m.def("add_index", &add_index<float>);
-}
+TORCH_LIBRARY(my_ops, m) { m.def("add_index", &add_index); }
