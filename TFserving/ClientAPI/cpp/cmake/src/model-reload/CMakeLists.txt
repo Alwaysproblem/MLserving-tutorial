@@ -11,10 +11,20 @@ link_directories(/usr/local/lib)
 link_directories(/grpc/cmake/build)
 link_directories(/usr/lib/x86_64-linux-gnu)
 
-file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "./*.cc" "/cpp/src/gen/*.cc")
+file(
+  GLOB_RECURSE SOURCES
+  RELATIVE ${CMAKE_SOURCE_DIR}
+  "./*.cc" "/cpp/src/gen/*.cc")
 
 add_executable(model-reload ${SOURCES})
-target_link_libraries(${PROJECT_NAME} -lboost_program_options -lprotobuf -pthread -lgrpc++ -lgrpc -lgrpc++_reflection)
+target_link_libraries(
+  ${PROJECT_NAME}
+  -lboost_program_options
+  -lprotobuf
+  -pthread
+  -lgrpc++
+  -lgrpc
+  -lgrpc++_reflection)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

@@ -7,13 +7,12 @@ enable_testing()
 include_directories(/cpp/src/gen)
 include_directories(/usr/local/include)
 
-# link_directories(/usr/local/lib)
-# link_directories(/grpc/cmake/build)
+# link_directories(/usr/local/lib) link_directories(/grpc/cmake/build)
 # link_directories(/usr/lib/x86_64-linux-gnu)
 
-link_directories(/usr/local/lib )
-link_directories(/grpc/cmake/build )
-link_directories(/usr/lib )
+link_directories(/usr/local/lib)
+link_directories(/grpc/cmake/build)
+link_directories(/usr/lib)
 link_directories(/grpc/cmake/build/third_party/boringssl-with-bazel)
 link_directories(/grpc/cmake/build/third_party/abseil-cpp/absl/base)
 link_directories(/grpc/cmake/build/third_party/abseil-cpp/absl/strings)
@@ -31,13 +30,25 @@ link_directories(/grpc/cmake/build/third_party/abseil-cpp/absl/debugging)
 link_directories(/grpc/cmake/build/third_party/abseil-cpp/absl/numeric)
 link_directories(/grpc/cmake/build/third_party/cares/cares/lib)
 
-file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "/cpp/src/gen/*.cc")
+file(
+  GLOB_RECURSE SOURCES
+  RELATIVE ${CMAKE_SOURCE_DIR}
+  "/cpp/src/gen/*.cc")
 
 add_library(tfclient ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} -lboost_program_options -lprotobuf -pthread -lgrpc++ -lgrpc -lgpr)
-target_link_libraries(${PROJECT_NAME} -laddress_sorting -lgrpc++_alts -lgrpc++_error_details -lgrpc++_reflection)
-target_link_libraries(${PROJECT_NAME} -lgrpc++_unsecure -lgrpc_plugin_support -lgrpc_unsecure -lgrpcpp_channelz -lupb)
+target_link_libraries(
+  ${PROJECT_NAME}
+  -lboost_program_options
+  -lprotobuf
+  -pthread
+  -lgrpc++
+  -lgrpc
+  -lgpr)
+target_link_libraries(${PROJECT_NAME} -laddress_sorting -lgrpc++_alts
+                      -lgrpc++_error_details -lgrpc++_reflection)
+target_link_libraries(${PROJECT_NAME} -lgrpc++_unsecure -lgrpc_plugin_support
+                      -lgrpc_unsecure -lgrpcpp_channelz -lupb)
 target_link_libraries(${PROJECT_NAME} -labsl_base)
 target_link_libraries(${PROJECT_NAME} -labsl_str_format_internal)
 target_link_libraries(${PROJECT_NAME} -labsl_strings_internal)
@@ -90,21 +101,27 @@ target_link_libraries(${PROJECT_NAME} -labsl_demangle_internal)
 target_link_libraries(${PROJECT_NAME} -labsl_flags)
 target_link_libraries(${PROJECT_NAME} -labsl_bad_any_cast_impl)
 target_link_libraries(${PROJECT_NAME} -labsl_leak_check)
-target_link_libraries(${PROJECT_NAME} -labsl_random_internal_distribution_test_util)
+target_link_libraries(${PROJECT_NAME}
+                      -labsl_random_internal_distribution_test_util)
 target_link_libraries(${PROJECT_NAME} -labsl_civil_time)
 target_link_libraries(${PROJECT_NAME} -labsl_hashtablez_sampler)
 target_link_libraries(${PROJECT_NAME} -lcares)
 target_link_libraries(${PROJECT_NAME} -lz)
 target_link_libraries(${PROJECT_NAME} -lssl)
-target_link_libraries(${PROJECT_NAME} -lcrypto )
+target_link_libraries(${PROJECT_NAME} -lcrypto)
 target_link_libraries(${PROJECT_NAME} -ldl)
 
 # set_target_properties(tfclient PROPERTIES PUBLIC_HEADER "${HEADERS}")
-INSTALL(TARGETS tfclient
-    LIBRARY DESTINATION ${PROJECT_SOURCE_DIR}/lib
-    ARCHIVE DESTINATION ${PROJECT_SOURCE_DIR}/lib)
+install(
+  TARGETS tfclient
+  LIBRARY DESTINATION ${PROJECT_SOURCE_DIR}/lib
+  ARCHIVE DESTINATION ${PROJECT_SOURCE_DIR}/lib)
 
-INSTALL(DIRECTORY /cpp/src/gen  DESTINATION ${PROJECT_SOURCE_DIR}/include FILES_MATCHING PATTERN "*.h")
+install(
+  DIRECTORY /cpp/src/gen
+  DESTINATION ${PROJECT_SOURCE_DIR}/include
+  FILES_MATCHING
+  PATTERN "*.h")
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
